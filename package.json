@@ -5,8 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --fix --max-warnings=0",
-    "prepare": "husky install"
+    "lint": "eslint . --fix --max-warnings=0"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
