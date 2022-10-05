@@ -40,13 +40,12 @@ export const inlineStyles = {
  color: "var(--gray-500)",
 };
 
-export const Select = <T,>(props: TSelectProps<T>, ref: React.ForwardedRef<HTMLSelectElement>) => {
+export const Select = <T,>(props: TSelectProps<T>) => {
  const selectedPillStyle = props.disabled ? "bg-gray-300 text-white border-none cursor-not-allowed" : "bg-teal-500 text-white";
 
  return (
   <MuiSelect
    {...props.formControllerFields}
-   //  ref={ref}
    displayEmpty
    onChange={props?.onChange}
    disabled={!!props.disabled}
@@ -63,7 +62,9 @@ export const Select = <T,>(props: TSelectProps<T>, ref: React.ForwardedRef<HTMLS
        ))}
      </Box>
     ) : (
-     <span className='text-gray-500'>{selected}</span>
+     <span className='text-gray-500'>
+      {props.selectOptions.find((option) => String(option[props.optionValue]) === String(selected))?.[props.optionLabel]}
+     </span>
     )
    }
    MenuProps={MenuProps}
