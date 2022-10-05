@@ -6,7 +6,7 @@ import { disabledStyles, inputVariants, TInput } from "../Input/Input";
 type TDefaultTextareaProps<TFormValues extends FieldValues> = {
  textareaProps: DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
  name: Path<TFormValues>;
- form: UseFormReturn<TFormValues>;
+ form?: UseFormReturn<TFormValues>;
  options?: RegisterOptions;
 };
 export type TTextarea<TFormValues extends FieldValues> = Omit<TInput, "inputProps"> & TDefaultTextareaProps<TFormValues>;

@@ -111,18 +111,21 @@ const GeneralForm = () => {
    form.setValue("rut", formatRut(formDataQuery.rut));
    form.setValue("rbd", formDataQuery.rbd);
    form.setValue("name", formDataQuery.name);
-   form.setValue("type_establishment_id", formDataQuery.type_establishment_id.toString());
+   form.setValue("name1", formDataQuery.name);
+   form.setValue("name2", formDataQuery.name);
+   form.setValue("name3", formDataQuery.name);
+   form.setValue("type_establishment_id", formDataQuery.type_establishment_id.toString() ?? "");
    form.setValue("web", formDataQuery.web);
    form.setValue("address", formDataQuery.address);
    form.setValue("telephone", formDataQuery.telephone);
    form.setValue("mobile", formDataQuery.mobile);
    form.setValue("email", formDataQuery.email);
-   form.setValue("region_id", formDataQuery.region_id.toString());
+   form.setValue("region_id", formDataQuery.region_id.toString() ?? "");
    if (formDataQuery.region_id) filterProvinces(formDataQuery.region_id.toString());
    if (formDataQuery.province_id) filterCommunes(formDataQuery.province_id.toString());
 
-   form.setValue("province_id", formDataQuery.province_id.toString());
-   form.setValue("commune_id", formDataQuery.commune_id.toString());
+   form.setValue("province_id", formDataQuery.province_id.toString() ?? "");
+   form.setValue("commune_id", formDataQuery.commune_id.toString() ?? "");
   }
  }, [id, formDataQuery]);
 
@@ -218,10 +221,6 @@ const GeneralForm = () => {
      label='Tipo de establecimiento'
      name='type_establishment_id'
      className='my-2 w-full'
-     //  form={form}
-     //  options={{
-     //   validate: (value) => value !== "" || "Este campo es requerido",
-     //  }}
      selectOptions={[
       { label: "Educación privada", id: 1 },
       { label: "Educación pública", id: 2 },

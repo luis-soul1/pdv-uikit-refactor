@@ -15,7 +15,7 @@ import { formatRut, validateRut, cleanRut } from "utils/helpers";
 const LoginForm: React.FC = () => {
  const { isLoading, setIsLoading } = useLoader();
  const [loginErrorMsg, setLoginErrorMsg] = useState("");
- const loginForm = useForm();
+ const loginForm = useForm<{ username: string; password: string }>({ defaultValues: { username: "", password: "" } });
 
  const login = async ({ username, password }: ILogin) => {
   try {
@@ -34,7 +34,7 @@ const LoginForm: React.FC = () => {
 
  useEffect(() => {
   const subscription = loginForm.watch((data) => {
-   const isAlreadyFormatted = data.username === formatRut(data.username);
+   const isAlreadyFormatted = data.username === formatRut(data?.username ?? "");
    if (data.username && !isAlreadyFormatted) {
     loginForm.setValue("username", formatRut(data.username));
    }

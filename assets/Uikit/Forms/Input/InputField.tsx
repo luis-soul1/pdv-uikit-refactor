@@ -20,7 +20,7 @@ const InputField = <TFormValues extends FieldValues>(props: TInputField<TFormVal
  return (
   <div className={props.className}>
    <div className={`flex gap-2 ${props?.labelPosition === "left" ? "flex-row" : "flex-col"}`}>
-    <LabelField label={props.label} />
+    <LabelField {...props} />
     {props?.form ? <ControlledInput form={props.form} {...props} /> : <Input {...props} inputProps={{ ...props.inputProps }} />}
    </div>
    {props?.form && <FormError errorClassName={props.errorClassName} name={props.name} errors={props.form?.formState?.errors} />}
