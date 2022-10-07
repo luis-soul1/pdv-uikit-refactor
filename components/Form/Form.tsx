@@ -28,6 +28,7 @@ import RangeDateField from "@Uikit/Forms/Datepicker/RangeDateField";
 import AutocompleteField, {
   TOption,
 } from "@Uikit/Forms/Autocomplete/AutocompleteField";
+import CheckboxField from "@Uikit/Forms/Checkbox/CheckboxField";
 
 type FormValues = {
   name: string;
@@ -54,6 +55,7 @@ type FormValues = {
   dateTo: Date;
   permissions: string;
   autocompelete: TOption;
+  checkbox: boolean;
 };
 
 const defaultValues = {
@@ -81,6 +83,7 @@ const defaultValues = {
   dateTo: new Date(),
   permissions: "basic",
   autocompelete: { label: "", value: "" },
+  checkbox: false,
 };
 
 const permissionsRadioOptions = [
@@ -143,6 +146,10 @@ const GeneralForm = () => {
   ) => {
     console.info(value);
     form.setValue("autocompelete", { label: "", value: "" });
+  };
+
+  const onChangeCheckbox = (value: boolean) => {
+    console.log({ checkbox: value });
   };
 
   const onSubmit = (data: FormValues) => {
@@ -293,6 +300,17 @@ const GeneralForm = () => {
           defaultValue={permissionsSelected}
           alignment="horizontal"
           color="blue-400"
+        />
+
+        <CheckboxField
+          label="Checkbox"
+          name="checkbox"
+          form={form}
+          options={{
+            required: "Este campo es requerido",
+            onChange: (e) => onChangeCheckbox(e),
+          }}
+          className="my-2"
         />
       </div>
       <Divider className="my-7" />
