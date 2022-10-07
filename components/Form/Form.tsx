@@ -25,7 +25,9 @@ import dayjs, { Dayjs } from "dayjs";
 import DateField from "@Uikit/Forms/Datepicker/DateField";
 import RadioGroupField from "@Uikit/Forms/Radio/RadioGroupField";
 import RangeDateField from "@Uikit/Forms/Datepicker/RangeDateField";
-import AutocompleteField from "@Uikit/Forms/Autocomplete/AutocompleteField";
+import AutocompleteField, {
+  TOption,
+} from "@Uikit/Forms/Autocomplete/AutocompleteField";
 
 type FormValues = {
   name: string;
@@ -51,7 +53,7 @@ type FormValues = {
   dateFrom: Date;
   dateTo: Date;
   permissions: string;
-  autocompelete: string;
+  autocompelete: TOption;
 };
 
 const defaultValues = {
@@ -78,7 +80,7 @@ const defaultValues = {
   dateFrom: new Date(),
   dateTo: new Date(),
   permissions: "basic",
-  autocompelete: "",
+  autocompelete: { label: "", value: "" },
 };
 
 const permissionsRadioOptions = [
@@ -140,6 +142,7 @@ const GeneralForm = () => {
     value: string | { label: string; value: string } | null
   ) => {
     console.info(value);
+    form.setValue("autocompelete", { label: "", value: "" });
   };
 
   const onSubmit = (data: FormValues) => {
@@ -160,10 +163,6 @@ const GeneralForm = () => {
       form.setValue("name2", formDataQuery.name);
       form.setValue("name3", formDataQuery.name);
       form.setValue(
-        "type_establishment_id",
-        formDataQuery.type_establishment_id.toString()
-      );
-      console.log(
         "type_establishment_id",
         formDataQuery.type_establishment_id.toString()
       );
@@ -216,6 +215,8 @@ const GeneralForm = () => {
           name="rbd"
           variant="default"
           form={form}
+          icon="Search"
+          iconColor="teal-500"
           inputProps={{ placeholder: "1" }}
           options={{ required: "Este campo es requerido" }}
           className="my-2"
@@ -441,6 +442,20 @@ const GeneralForm = () => {
       <Divider className="my-7" /> */}
 
       <h6 className="subtitle2 text-blue-500">AUTOCOMPLETE</h6>
+
+      <AutocompleteField
+        form={form}
+        name="autocompelete"
+        autocompleteOptions={
+          autocompleteOpts
+            ? autocompleteOpts.map((item) => ({
+                label: `${item.code} - ${item.name}`,
+                value: String(item.id),
+              }))
+            : []
+        }
+        options={{ onChange: (value) => onSelectAutocompleteOpt(value) }}
+      />
       {/* <Autocomplete
         id="teaching_type_id"
         onChange={(e, value) => onSelectAutocompleteOpt(value)}

@@ -39,7 +39,7 @@ const TextArea = <TFormValues extends FieldValues>(
     <textarea
       {...registerOpts}
       {...props.textareaProps}
-      className={`p-4 focus:outline-none ${selectedVariant} ${disabledStyles}`}
+      className={`subtitle2 p-4 text-gray-500 focus:outline-none ${selectedVariant} ${disabledStyles}`}
       id={props.id}
     />
   );
