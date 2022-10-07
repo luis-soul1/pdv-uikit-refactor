@@ -16,17 +16,7 @@ import { AutocompleteValue } from "@mui/material/useAutocomplete";
 export type TAutocomplete<TFormValues extends FieldValues, TOptions> = {
   name: Path<TFormValues>;
   form: UseFormReturn<TFormValues>;
-  options?: RegisterOptions /* & {
-    onChange: (
-      event: SyntheticEvent<Element, Event>,
-      value: AutocompleteValue<
-        TOption,
-        PathValue<TFormValues, Path<TFormValues>>,
-        undefined,
-        true
-      >
-    ) => void;
-  }; */;
+  options?: RegisterOptions;
   autocompleteOptions: TOption[];
 };
 

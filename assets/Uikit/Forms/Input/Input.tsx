@@ -124,24 +124,7 @@ export const Input = <TFormValues extends FieldValues>(
 };
 
 export const ForwardedInput = forwardRef<HTMLInputElement, TBaseInput>(
-  (props, ref) => {
-    // console.log({ props, ref });
-    return <BaseInput ref={ref} {...props} />;
-
-    return (
-      <MuiInput
-        disableUnderline
-        ref={ref}
-        inputProps={props.inputProps}
-        {...props?.controlFields}
-        id={props?.id}
-        className={`focus:outline-nonerounded-md subtitle2 border border-gray-300 bg-white px-4 text-gray-500 focus-within:border-blue-500 hover:border-blue-500 ${
-          props.inputProps?.className ?? ""
-        }`}
-        sx={{ height: 44, paddingLeft: 16, paddingRight: 16 }}
-      />
-    );
-  }
+  (props, ref) => <BaseInput ref={ref} {...props} />
 );
 
 export default Input;

@@ -25,6 +25,7 @@ import dayjs, { Dayjs } from "dayjs";
 import DateField from "@Uikit/Forms/Datepicker/DateField";
 import RadioGroupField from "@Uikit/Forms/Radio/RadioGroupField";
 import RangeDateField from "@Uikit/Forms/Datepicker/RangeDateField";
+import PdvTabs from "@Uikit/PdvTabs";
 import AutocompleteField, {
   TOption,
 } from "@Uikit/Forms/Autocomplete/AutocompleteField";
@@ -54,7 +55,7 @@ type FormValues = {
   dateFrom: Date;
   dateTo: Date;
   permissions: string;
-  autocompelete: TOption;
+  autocomplete: TOption;
   checkbox: boolean;
 };
 
@@ -82,7 +83,7 @@ const defaultValues = {
   dateFrom: new Date(),
   dateTo: new Date(),
   permissions: "basic",
-  autocompelete: { label: "", value: "" },
+  autocomplete: { label: "", value: "" },
   checkbox: false,
 };
 
@@ -145,7 +146,7 @@ const GeneralForm = () => {
     value: string | { label: string; value: string } | null
   ) => {
     console.info(value);
-    form.setValue("autocompelete", { label: "", value: "" });
+    // form.setValue("autocomplete", { label: "", value: "" });
   };
 
   const onChangeCheckbox = (value: boolean) => {
@@ -186,6 +187,10 @@ const GeneralForm = () => {
 
       form.setValue("province_id", formDataQuery.province_id.toString());
       form.setValue("commune_id", formDataQuery.commune_id.toString());
+      form.setValue("autocomplete", {
+        label: "165 - Educación Básica Adultos Sin Oficios (Decreto 584/2007)",
+        value: "7",
+      });
     }
   }, [id, formDataQuery]);
 
@@ -205,15 +210,87 @@ const GeneralForm = () => {
     <form className="my-5 w-full" onSubmit={form.handleSubmit(onSubmit)}>
       <PageTitle title="Uikit Form Demo" asHeader />
 
-      <PdvButton
-        icon="Check"
-        type="submit"
-        theme="teal-500"
-        size="small"
-        className="ml-auto mt-5 block"
-      >
-        Submit
-      </PdvButton>
+      <h6 className="subtitle2 my-4 text-center text-blue-500">
+        TIPOS DE BOTONES
+      </h6>
+      <div className="my-4 flex items-center justify-center gap-2">
+        <PdvButton type="submit">Contained</PdvButton>
+        <PdvButton type="submit" color="indigo-700" variant="outlined">
+          Outlined
+        </PdvButton>
+        <PdvButton type="submit" color="indigo-700" variant="default">
+          Default
+        </PdvButton>
+
+        <PdvButton
+          type="submit"
+          color="indigo-700"
+          disabled
+          onClick={() => console.log("presione disabled")}
+        >
+          Disabled
+        </PdvButton>
+
+        <PdvButton type="submit" color="indigo-700" variant="outlined" disabled>
+          Disabled Outlined
+        </PdvButton>
+
+        <PdvButton type="submit" color="indigo-700" variant="default" disabled>
+          Disabled default
+        </PdvButton>
+
+        <PdvButton type="submit" color="blue-100" textColor="blue-400">
+          Contained Texto
+        </PdvButton>
+        <PdvButton
+          type="submit"
+          color="blue-100"
+          textColor="blue-400"
+          variant="outlined"
+        >
+          Outlined Texto
+        </PdvButton>
+        <PdvButton type="submit" color="indigo-700" variant="default">
+          Default Texto
+        </PdvButton>
+      </div>
+
+      <div className="my-4 flex items-center justify-center gap-2">
+        <PdvButton type="submit" icon="Activity">
+          Contained Icono
+        </PdvButton>
+        <PdvButton
+          type="submit"
+          color="indigo-700"
+          variant="outlined"
+          icon="Activity"
+        >
+          Outlined Icono
+        </PdvButton>
+        <PdvButton
+          type="submit"
+          color="indigo-700"
+          variant="default"
+          icon="Activity"
+        >
+          Default Icono
+        </PdvButton>
+      </div>
+      <Divider className="my-7" />
+
+      <div className="my-4">
+        <PdvTabs color="orange-400" size="full">
+          <PdvTabs.Tab tabText="Datos generales" tabKey="general-tab">
+            asdasd
+          </PdvTabs.Tab>
+          <PdvTabs.Tab tabText="Plataformas" tabKey="platforms-tab">
+            asdassadsda
+          </PdvTabs.Tab>
+          <PdvTabs.Tab tabText="Usuarios" tabKey="users-tab" disabled>
+            Users
+          </PdvTabs.Tab>
+        </PdvTabs>
+      </div>
 
       <h6 className="subtitle2 text-blue-500">INPUTS</h6>
       <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
@@ -242,7 +319,6 @@ const GeneralForm = () => {
           className="my-2 max-w-md"
         />
       </div>
-
       <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
         <InputField
           label="Transparente"
@@ -291,7 +367,6 @@ const GeneralForm = () => {
           className="my-2 w-full"
         />
       </div>
-
       <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
         <RadioGroupField
           name="permissions"
@@ -314,9 +389,7 @@ const GeneralForm = () => {
         />
       </div>
       <Divider className="my-7" />
-
       <h6 className="subtitle2 text-blue-500">DATEPICKER & TIMEPICKER</h6>
-
       <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
         <DateField
           form={form}
@@ -339,13 +412,10 @@ const GeneralForm = () => {
           }}
         />
       </div>
-
       <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
         <RangeDateField form={form} nameFrom="dateFrom" nameTo="dateTo" />
       </div>
-
       <Divider className="my-7" />
-
       <h6 className="subtitle2 text-blue-500">
         SELECTS CON OPCIONES ESTATICAS
       </h6>
@@ -376,9 +446,7 @@ const GeneralForm = () => {
           optionValue="id"
         />
       </div>
-
       <Divider className="my-7" />
-
       <h6 className="subtitle2 text-blue-500">
         SELECTS CON OPCIONES DINAMICAS (DEL BACKEND)
       </h6>
@@ -429,41 +497,11 @@ const GeneralForm = () => {
           optionValue="id"
         />
       </div>
-
       <Divider className="my-7" />
-
-      {/* <h6 className="subtitle2 text-blue-500">DATEPICKER & TIMEPICKER</h6>
-
-      <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
-        <DateField
-          form={form}
-          name="date"
-          label="Selecciona fecha"
-          viewType="day"
-          className="my-2 w-full"
-        />
-
-        <TimeField
-          className="my-2 w-full"
-          name="time_end"
-          form={form}
-          label="Selecciona el tiempo"
-          options={{ required: "Debe seleccionar una hora inicial" }}
-          muiTimePickerProps={{
-            minutesStep: 45,
-            ampm: false,
-            ampmInClock: false,
-          }}
-        />
-      </div>
-
-      <Divider className="my-7" /> */}
-
       <h6 className="subtitle2 text-blue-500">AUTOCOMPLETE</h6>
-
       <AutocompleteField
         form={form}
-        name="autocompelete"
+        name="autocomplete"
         autocompleteOptions={
           autocompleteOpts
             ? autocompleteOpts.map((item) => ({
@@ -474,36 +512,6 @@ const GeneralForm = () => {
         }
         options={{ onChange: (value) => onSelectAutocompleteOpt(value) }}
       />
-      {/* <Autocomplete
-        id="teaching_type_id"
-        onChange={(e, value) => onSelectAutocompleteOpt(value)}
-        value={{ label: "", value: "" }}
-        freeSolo
-        clearOnBlur
-        isOptionEqualToValue={(option, value) => option.value === value.value}
-        noOptionsText="No se encontraron resultados"
-        getOptionLabel={(option) => option.label}
-        options={
-          autocompleteOpts
-            ? autocompleteOpts.map((item) => ({
-                label: `${item.code} - ${item.name}`,
-                value: String(item.id),
-              }))
-            : []
-        }
-        renderInput={({
-          InputProps: { ref: anchorListRef },
-          inputProps: muiInputProps,
-        }) => (
-          <div ref={anchorListRef} className="mt-4 max-w-xs shadow-16">
-            <ForwardedGenericInput
-              icon={<PdvIcons name="Search" color="teal-500" />}
-              name="teaching_type_id"
-              inputProps={{ ...muiInputProps, placeholder: "Buscar..." }}
-            />
-          </div>
-        )}
-      /> */}
     </form>
   );
 };
