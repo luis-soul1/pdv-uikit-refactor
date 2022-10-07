@@ -1,6 +1,6 @@
 import { TColors } from "@Uikit/colors";
 import { PdvIcons, TIconNames } from "@Uikit/PdvIcons";
-import { forwardRef, ReactElement } from "react";
+import { forwardRef, ReactElement, RefObject } from "react";
 import {
   Controller,
   ControllerRenderProps,
@@ -18,7 +18,7 @@ export type TBaseInput = {
   id?: string;
   variant?: TVariant;
   theme?: TColors;
-  icon?: TIconNames | ReactElement;
+  icon?: TIconNames;
   iconColor?: TColors;
   iconPosition?: "left" | "right";
   inputProps?: InputBaseComponentProps;
@@ -28,30 +28,31 @@ export type TBaseInput = {
 
 export const inputVariants: Record<TVariant, string> = {
   default:
-    "rounded-md border border-gray-300 hover:border-blue-500 focus-within:border-blue-500 bg-white text-gray-500 subtitle2",
-  outlined: "border-gray-300 border-b-2 text-gray-500 subtitle2",
-  transparent: "border-0 text-gray-500 subtitle2",
+    "rounded-md border border-gray-300 hover:border-blue-500 focus-within:border-blue-500 bg-white",
+  outlined: "border-gray-300 border-b-2",
+  transparent: "border-0",
 };
 export const disabledStyles =
   "disabled:bg-gray-50 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed";
-let icon: string | ReactElement | undefined;
 
-const BaseInput = (props: TBaseInput) => {
+const BaseInput = forwardRef<HTMLInputElement, TBaseInput>((props, ref) => {
   const inputProps = props?.inputProps ? { ...props.inputProps } : {};
   const selectedVariant = props.variant
     ? inputVariants[props.variant]
     : inputVariants.default;
 
-  if (props.icon && typeof props.icon !== "string") icon = props.icon;
-  if (typeof props.icon === "string")
-    icon = (
-      <PdvIcons
-        className="mt-2"
-        name={props.icon}
-        color={props.iconColor ?? "blue-500"}
-      />
-    );
-  if (icon)
+  if (props?.icon) {
+    const icon =
+      typeof props.icon === "string" ? (
+        <PdvIcons
+          className="mt-2"
+          name={props.icon}
+          color={props.iconColor ?? "blue-500"}
+        />
+      ) : (
+        props.icon
+      );
+
     return (
       <div
         className={`subtitle2 flex w-full items-center overflow-hidden text-gray-500 transition ease-in-out ${selectedVariant}`}
@@ -62,9 +63,10 @@ const BaseInput = (props: TBaseInput) => {
         <MuiInput
           disableUnderline
           {...props?.controlFields}
+          ref={ref}
           inputProps={inputProps}
-          id={props.id}
-          className={`focus:outline-none ${disabledStyles} ${
+          id={props?.id}
+          className={`subtitle2 text-gray-500 focus:outline-none ${disabledStyles} ${
             props.iconPosition === "right" ? "px-4" : "pr-4"
           } ${props.inputProps?.className ?? ""}`}
           sx={{
@@ -77,22 +79,24 @@ const BaseInput = (props: TBaseInput) => {
         )}
       </div>
     );
+  }
 
   return (
     <>
       <MuiInput
         disableUnderline
         {...props?.controlFields}
-        id={props?.id}
+        ref={ref}
         inputProps={inputProps}
-        className={`px-4 focus:outline-none ${selectedVariant} ${disabledStyles} ${
+        id={props?.id}
+        className={`subtitle2 px-4 text-gray-500 focus:outline-none ${selectedVariant} ${disabledStyles} ${
           props.inputProps?.className ?? ""
         }`}
         sx={{ height: 44, paddingLeft: 16, paddingRight: 16 }}
       />
     </>
   );
-};
+});
 
 export type TInput<TFormValues extends FieldValues> = {
   name: Path<TFormValues>;
@@ -119,14 +123,16 @@ export const Input = <TFormValues extends FieldValues>(
   );
 };
 
-export const ForwardedInput = forwardRef<HTMLInputElement, TInput<FieldValues>>(
+export const ForwardedInput = forwardRef<HTMLInputElement, TBaseInput>(
   (props, ref) => {
-    // return <BaseInput {...props} />;
+    // console.log({ props, ref });
+    return <BaseInput ref={ref} {...props} />;
 
     return (
       <MuiInput
         disableUnderline
         ref={ref}
+        inputProps={props.inputProps}
         {...props?.controlFields}
         id={props?.id}
         className={`focus:outline-nonerounded-md subtitle2 border border-gray-300 bg-white px-4 text-gray-500 focus-within:border-blue-500 hover:border-blue-500 ${
