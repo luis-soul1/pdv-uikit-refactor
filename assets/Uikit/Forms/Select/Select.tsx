@@ -88,7 +88,6 @@ const Select = <TSelectOptions, TFormValues extends FieldValues>(
 
         return (
           <MuiSelect
-            disableUnderline
             {...restFields}
             displayEmpty
             multiple={props?.multiple}

@@ -1,6 +1,6 @@
 import { TColors } from "@Uikit/colors";
 import { PdvIcons, TIconNames } from "@Uikit/PdvIcons";
-import { ReactElement } from "react";
+import { forwardRef, ReactElement } from "react";
 import {
   Controller,
   ControllerRenderProps,
@@ -118,5 +118,24 @@ export const Input = <TFormValues extends FieldValues>(
     />
   );
 };
+
+export const ForwardedInput = forwardRef<HTMLInputElement, TInput<FieldValues>>(
+  (props, ref) => {
+    // return <BaseInput {...props} />;
+
+    return (
+      <MuiInput
+        disableUnderline
+        ref={ref}
+        {...props?.controlFields}
+        id={props?.id}
+        className={`focus:outline-nonerounded-md subtitle2 border border-gray-300 bg-white px-4 text-gray-500 focus-within:border-blue-500 hover:border-blue-500 ${
+          props.inputProps?.className ?? ""
+        }`}
+        sx={{ height: 44, paddingLeft: 16, paddingRight: 16 }}
+      />
+    );
+  }
+);
 
 export default Input;

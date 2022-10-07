@@ -24,6 +24,8 @@ import TimeField from "@Uikit/Forms/Timepicker/TimeField";
 import dayjs, { Dayjs } from "dayjs";
 import DateField from "@Uikit/Forms/Datepicker/DateField";
 import RadioGroupField from "@Uikit/Forms/Radio/RadioGroupField";
+import RangeDateField from "@Uikit/Forms/Datepicker/RangeDateField";
+import AutocompleteField from "@Uikit/Forms/Autocomplete/AutocompleteField";
 
 type FormValues = {
   name: string;
@@ -46,7 +48,10 @@ type FormValues = {
   multidemo: string[];
   time_end: Date;
   date: Date;
+  dateFrom: Date;
+  dateTo: Date;
   permissions: string;
+  autocompelete: string;
 };
 
 const defaultValues = {
@@ -70,7 +75,10 @@ const defaultValues = {
   multidemo: [],
   time_end: new Date(),
   date: new Date(),
+  dateFrom: new Date(),
+  dateTo: new Date(),
   permissions: "basic",
+  autocompelete: "",
 };
 
 const permissionsRadioOptions = [
@@ -210,7 +218,7 @@ const GeneralForm = () => {
           form={form}
           inputProps={{ placeholder: "1" }}
           options={{ required: "Este campo es requerido" }}
-          className="my-2 w-full"
+          className="my-2"
         />
 
         <InputField
@@ -311,6 +319,10 @@ const GeneralForm = () => {
             ampmInClock: false,
           }}
         />
+      </div>
+
+      <div className="grid w-full gap-4 md:grid-cols-1 lg:grid-cols-2">
+        <RangeDateField form={form} nameFrom="dateFrom" nameTo="dateTo" />
       </div>
 
       <Divider className="my-7" />

@@ -13,6 +13,8 @@ import FormError from "../FormError";
 import LabelField, { TLabelField } from "../LabelField";
 import Input, { TInput } from "../Input/Input";
 
+export type TDateVariant = "default" | "transparent";
+
 type TDatepicker<TFormValues extends FieldValues> = {
   className?: string;
   viewType?: "day" | "month" | "year";
@@ -24,14 +26,25 @@ type TDatepicker<TFormValues extends FieldValues> = {
   shouldDisableYear?: (date: Dayjs) => boolean;
   shouldDisableMonth?: (date: Dayjs) => boolean;
   shouldDisableDate?: (date: Dayjs) => boolean;
+  variant?: TDateVariant;
 } & TInput<TFormValues> &
   TLabelField;
+
+export const inputVariants: Record<TDateVariant, string> = {
+  default:
+    "rounded-md border border-gray-300 hover:border-blue-500 focus:border-blue-500",
+  transparent: "border-0 text-gray-500 subtitle2",
+};
 
 const DateField = <TDate, TFormValues extends FieldValues>(
   props: TDatepicker<TFormValues>
 ) => {
-  const { icon, viewType = "day", iconColor } = props;
+  const { icon, viewType = "day", iconColor, variant = "default" } = props;
   let dateIcon = <PdvIcons name="Calendar" color="blue-500" />;
+
+  const selectedVariant = props.variant
+    ? inputVariants[props.variant]
+    : inputVariants.default;
 
   if (icon && typeof icon !== "string") dateIcon = icon;
   if (typeof icon === "string")
@@ -63,14 +76,14 @@ const DateField = <TDate, TFormValues extends FieldValues>(
               return (
                 <div className={props.className}>
                   <div
-                    className={`flex gap-2 ${
+                    className={`flex gap-2  ${
                       props?.labelPosition === "left" ? "flex-row" : "flex-col"
                     }`}
                   >
                     {props?.label && <LabelField {...props} />}
                     <div className={`${disabledStyles}`}>
                       <div
-                        className={`flex items-center overflow-hidden rounded-md border border-gray-300 hover:border-blue-500 focus:border-blue-500 ${disabledStyles} ${
+                        className={`flex items-center overflow-hidden ${selectedVariant} ${disabledStyles} ${
                           props.className ?? ""
                         }`}
                         ref={inputRef}
