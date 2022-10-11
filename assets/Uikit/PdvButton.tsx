@@ -73,7 +73,7 @@ const PdvButton: React.FC<TPdvButton> = (props) => {
     !props?.disabled ? "hover:opacity-70" : ""
   }`;
 
-  const refactorButtonStyles = () => {
+  const buttonStyles = () => {
     let backgroundColor;
     let selectedTextColor;
     let borderColor;
@@ -137,7 +137,7 @@ const PdvButton: React.FC<TPdvButton> = (props) => {
             paddingLeft: 2,
             paddingRight: 2,
           }}
-          style={{ ...refactorButtonStyles() }}
+          style={{ ...buttonStyles() }}
           disabled={disabled}
         >
           <div className="total-center gap-1">
@@ -170,7 +170,7 @@ const PdvButton: React.FC<TPdvButton> = (props) => {
           paddingLeft: 2,
           paddingRight: 2,
         }}
-        style={{ ...refactorButtonStyles() }}
+        style={{ ...buttonStyles() }}
         disabled={disabled}
       >
         <span className="invisible">{children}</span>
@@ -190,7 +190,7 @@ const PdvButton: React.FC<TPdvButton> = (props) => {
           paddingLeft: 2,
           paddingRight: 2,
         }}
-        style={{ ...refactorButtonStyles() }}
+        style={{ ...buttonStyles() }}
         disabled={disabled}
       >
         <div className="total-center gap-1">

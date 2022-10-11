@@ -289,6 +289,14 @@ const GeneralForm = () => {
           <PdvTabs.Tab tabText="Usuarios" tabKey="users-tab" disabled>
             Users
           </PdvTabs.Tab>
+          <PdvTabs.Tab
+            tabText="Tooltip"
+            tabKey="users-tab"
+            disabled
+            tooltip="Esto es un tooltip demostrativo "
+          >
+            Tooltip
+          </PdvTabs.Tab>
         </PdvTabs>
       </div>
 

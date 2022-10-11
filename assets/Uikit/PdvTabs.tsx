@@ -1,7 +1,7 @@
 import { useState, Children, cloneElement, useEffect } from "react";
 import { TColors } from "./colors";
 
-import PdvButton, { TButtonSize, TButtonTheme } from "./PdvButton";
+import PdvButton, { TButtonSize } from "./PdvButton";
 import { PdvIcons, TIconNames } from "./PdvIcons";
 import PdvTooltip from "./PdvTooltip";
 
@@ -123,7 +123,6 @@ const Tab: React.FC<TTab> = (props) => {
             props.isSelected ? "shadow-md" : ""
           }`}
           onClick={props.onClick}
-          noShadow
           icon={
             props?.icon && (
               <PdvIcons
